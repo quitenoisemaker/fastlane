@@ -2,8 +2,9 @@
 
 @section('content')
 <div class="container">
+    <div><h2>Create showtimes For this cinema</h2></div>
     <div class="p-2">
-        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="">Add Cinema</button>
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="">Add Showtime</button>
     </div>
     <div class="row justify-content-center">
         
@@ -14,26 +15,24 @@
                     <thead>
                       <tr>
                         <th scope="col">Date created</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col"></th>
+                        <th scope="col">Session</th>
+                        <th scope="col">Time</th>
                       </tr>
                     </thead>
                     <tbody>
-                            @if (count($cinemas)>0)
-                                @foreach ($cinemas as $cinema)
+                            @if (count($showtimes)>0)
+                                @foreach ($showtimes as $showtime)
                                     <tr>
                                 
-                                        <td>{{$cinema->created_at->diffForHumans()}}</td>
-                                        <td>{{$cinema->name}}</td>
-                                        <td>{{$cinema->desc}}</td>
-                                        <td><a href="{{route('cinema.showtime', $cinema->id)}}" class="btn btn-success btn-sm">Add showtime</a>
-                                            <a href="{{route('cinema.show', $cinema->id)}}" class="btn btn-warning btn-sm">View & Add Movie</a></td>
+                                        <td>{{$showtime->created_at->diffForHumans()}}</td>
+                                        <td>{{ucfirst($showtime->session)}}</td>
+                                        <td>{{\Carbon\Carbon::parse($showtime->start_time)->format('h:s a')}}</td>
+                                        
                                     
                                     </tr>
                                 @endforeach
                             @else
-                          {{'List empty, please click on the add button to add cinema'}}
+                          {{'List empty, please click on the add button to add showtime to cinema'}}
                         @endif
                     </tbody>
                   </table>
@@ -48,23 +47,29 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Create Cinema</h5>
+                <h5>Create Showtime </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
-                        <form method="POST" action="{{ route('cinema.store') }}" class="myForm">
+                        <form method="POST" action="{{ route('showtime.store') }}" class="myForm">
                             @csrf 
                             <div class="form-row">
+                                <input type="hidden" name="cinema_id" value="{{$cinema->id}}">
                                 <div class="form-group col-md-6">
-                                    <label for="name">Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" required name="name" id="name">
+                                    <label for="name">Session<span class="text-danger">*</span></label>
+                                    <select class="form-control" name="session">
+                                        <option value="" selected disabled>Select session</option>
+                                        <option value="morning"> Morning</option>
+                                        <option value="afternoon"> Afternoon</option>
+                                        <option value="evening"> Evening</option>
+                                    </select>
                                 </div>
                                 
                                 <div class="form-group col-md-6">
-                                    <label for="description"> Description</label>
-                                    <input type="text" class="form-control" name="description" id="description">
+                                    <label for="time">Time</label>
+                                    <input type="time" class="form-control" name="time" id="time">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Add</button>

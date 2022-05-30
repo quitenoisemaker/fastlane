@@ -24,4 +24,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/cinema', 'fastlane\CinemaController@index')->name('cinema.index');
     Route::post('/cinema/create', 'fastlane\CinemaController@store')->name('cinema.store');
+    Route::get('/cinema/show/{id}', 'fastlane\CinemaController@show')->name('cinema.show');
+    Route::get('/cinema/add/showtime/{id}', 'fastlane\CinemaController@getShowtimeToCinema')->name('cinema.showtime');
+    Route::post('/showtime/create', 'fastlane\CinemaController@showtimeStore')->name('showtime.store');
+    Route::post('/movie/create', 'fastlane\CinemaController@movieStore')->name('movie.store');
 });
