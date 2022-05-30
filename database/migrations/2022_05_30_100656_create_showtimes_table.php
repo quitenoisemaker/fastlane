@@ -15,6 +15,9 @@ class CreateShowtimesTable extends Migration
     {
         Schema::create('showtimes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('cinema_id')->constrained()->onDelete('cascade');
+            $table->string('session');
+            $table->time('start_time');
             $table->timestamps();
         });
     }

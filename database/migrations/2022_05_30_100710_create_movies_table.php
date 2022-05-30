@@ -15,6 +15,10 @@ class CreateMoviesTable extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('showtime_id')->constrained()->onDelete('cascade');
+            $table->string('title');
+            $table->string('genre')->nullable();
+            $table->string("image")->nullable();
             $table->timestamps();
         });
     }
