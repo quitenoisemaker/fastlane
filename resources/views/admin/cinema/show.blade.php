@@ -7,7 +7,17 @@
         <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="">Add Movie</button>
     </div>
     <div class="row justify-content-center">
-        
+        {{-- show errors --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        {{-- end --}}
         
         <div class="col-md-8">
             <div class="card text-center">
@@ -34,9 +44,9 @@
                                         <td>{{$movie->genre}}</td>
                                     </tr>
                                 @endforeach
-                            @else
-                          {{'List empty, please click on the add button to add Movie to cinema'}}
-                        @endif
+                                @else
+                                {{'List empty, please click on the add button to add Movie to cinema'}}
+                            @endif
                     </tbody>
                   </table>
             </div>
@@ -45,12 +55,12 @@
 </div>
 @endsection
 
- <!-- sample modal2 content -->
+ <!-- modal content -->
  <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Create Cinema</h5>
+                <h5>Create Movie</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
@@ -84,14 +94,13 @@
                                         @endif
                                     </select>
                                 </div>
-                                
-                                
                             </div>
                             <button type="submit" class="btn btn-primary">Add</button>
                           </form>
                     </div>
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal --> 
+        </div>
+    </div>
+</div>
+{{-- Modal Ends --}}

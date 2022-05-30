@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\fastlane;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateCinemaRequest;
+use App\Http\Requests\CreateMovieRequest;
+use App\Http\Requests\CreateShowtimeRequest;
 use App\Models\Cinema;
 use App\Models\Movie;
 use App\Models\Showtime;
@@ -29,7 +32,7 @@ class CinemaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, CinemaService $cinema)
+    public function store(CreateCinemaRequest $request, CinemaService $cinema)
     {
         //
         $cinema->createCinema($request);
@@ -51,40 +54,6 @@ class CinemaController extends Controller
         return view('admin.cinema.show', compact('cinema', 'movies', 'showtimes'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cinema  $cinema
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cinema $cinema)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cinema  $cinema
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cinema $cinema)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cinema  $cinema
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Cinema $cinema)
-    {
-        //
-    }
-
     public function getShowtimeToCinema($id)
     {
         # code...
@@ -93,14 +62,14 @@ class CinemaController extends Controller
         return view('admin.cinema.add_showtime', compact('cinema', 'showtimes'));
     }
 
-    public function showtimeStore(Request $request, CinemaService $showtime)
+    public function showtimeStore(CreateShowtimeRequest $request, CinemaService $showtime)
     {
         # code...
         $showtime->createCinemaShowtime($request);
         return back();
     }
 
-    public function movieStore(Request $request, CinemaService $movie)
+    public function movieStore(CreateMovieRequest $request, CinemaService $movie)
     {
         # code...
         $movie->createCinemaMovie($request);

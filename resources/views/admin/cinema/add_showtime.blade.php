@@ -7,8 +7,18 @@
         <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-id="">Add Showtime</button>
     </div>
     <div class="row justify-content-center">
-        
-        
+
+            {{-- show errors --}}
+            @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            {{-- end --}}
         <div class="col-md-8">
             <div class="card text-center">
                 <table class="table table-striped">
@@ -22,18 +32,15 @@
                     <tbody>
                             @if (count($showtimes)>0)
                                 @foreach ($showtimes as $showtime)
-                                    <tr>
-                                
-                                        <td>{{$showtime->created_at->diffForHumans()}}</td>
-                                        <td>{{ucfirst($showtime->session)}}</td>
-                                        <td>{{\Carbon\Carbon::parse($showtime->start_time)->format('h:s a')}}</td>
-                                        
-                                    
-                                    </tr>
+                                        <tr>
+                                            <td>{{$showtime->created_at->diffForHumans()}}</td>
+                                            <td>{{ucfirst($showtime->session)}}</td>
+                                            <td>{{\Carbon\Carbon::parse($showtime->start_time)->format('h:s a')}}</td>
+                                        </tr>
                                 @endforeach
-                            @else
-                          {{'List empty, please click on the add button to add showtime to cinema'}}
-                        @endif
+                                    @else
+                                        {{'List empty, please click on the add button to add showtime to cinema'}}
+                            @endif
                     </tbody>
                   </table>
             </div>
@@ -42,7 +49,7 @@
 </div>
 @endsection
 
- <!-- sample modal2 content -->
+ <!--  modal content -->
  <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -77,6 +84,7 @@
                     </div>
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal --> 
+        </div>
+    </div>
+</div>
+{{-- Modal End --}}

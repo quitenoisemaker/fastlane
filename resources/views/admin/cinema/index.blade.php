@@ -7,7 +7,18 @@
     </div>
     <div class="row justify-content-center">
         
-        
+            {{-- show errors --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            {{-- end --}}
+
         <div class="col-md-8">
             <div class="card text-center">
                 <table class="table table-striped">
@@ -23,16 +34,17 @@
                             @if (count($cinemas)>0)
                                 @foreach ($cinemas as $cinema)
                                     <tr>
-                                
                                         <td>{{$cinema->created_at->diffForHumans()}}</td>
                                         <td>{{$cinema->name}}</td>
                                         <td>{{$cinema->desc}}</td>
-                                        <td><a href="{{route('cinema.showtime', $cinema->id)}}" class="btn btn-success btn-sm">Add showtime</a>
-                                            <a href="{{route('cinema.show', $cinema->id)}}" class="btn btn-warning btn-sm">View & Add Movie</a></td>
-                                    
+                                        <td>
+                                            <a href="{{route('cinema.showtime', $cinema->id)}}" class="btn btn-success btn-sm">Add showtime</a>
+                                            <a href="{{route('cinema.show', $cinema->id)}}" class="btn btn-warning btn-sm">View & Add Movie</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else
+
                           {{'List empty, please click on the add button to add cinema'}}
                         @endif
                     </tbody>
@@ -43,7 +55,7 @@
 </div>
 @endsection
 
- <!-- sample modal2 content -->
+ <!-- modal content -->
  <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -59,7 +71,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="name">Name<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" required name="name" id="name">
+                                    <input type="text" class="form-control" name="name" id="name">
                                 </div>
                                 
                                 <div class="form-group col-md-6">
@@ -72,6 +84,7 @@
                     </div>
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal --> 
+        </div>
+    </div>
+</div>
+{{-- Modal end --}}
