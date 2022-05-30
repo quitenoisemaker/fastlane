@@ -76,7 +76,7 @@
                                 
                                 <div class="form-group col-md-6">
                                     <label for="time">Time</label>
-                                    <input type="time" class="form-control" name="time" id="time">
+                                    <input type="time" class="form-control" name="start_time" id="time">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Add</button>

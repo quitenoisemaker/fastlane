@@ -31,7 +31,7 @@ class CinemaService
         $showtime = new Showtime();
         $showtime->cinema_id = $request->cinema_id;
         $showtime->session = $request->session;
-        $showtime->start_time = $request->time;
+        $showtime->start_time = $request->start_time;
         $showtime->save();
         return $showtime;
     }
